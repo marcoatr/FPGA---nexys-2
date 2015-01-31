@@ -1,0 +1,94 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.STD_LOGIC_UNSIGNED.ALL;
+
+entity test7seg is
+    Port ( SW_VECTOR 	: in  STD_LOGIC_VECTOR (2 downto 0);   -- switchers
+           DISP 			: out  STD_LOGIC_VECTOR (7 downto 0);  -- disp 7 seg
+           AN1 			: out  STD_LOGIC_VECTOR (3 downto 0);  -- anodos do disp
+			  clock        : in BIT -- clock, o importante do clock e ligar ele na porta R8 
+			  );
+
+end test7seg;
+
+architecture Behavioral of test7seg is
+	
+	constant zero   :STD_LOGIC_VECTOR (7 downto 0):= "11000000"; --criar as cosntantes para cada numero no disp
+	constant um     :STD_LOGIC_VECTOR (7 downto 0):= "11111001";
+	constant dois   :STD_LOGIC_VECTOR (7 downto 0):= "10100100";
+	constant tres   :STD_LOGIC_VECTOR (7 downto 0):= "10110000";
+	constant quatro :STD_LOGIC_VECTOR (7 downto 0):= "10011001";
+	constant cinco  :STD_LOGIC_VECTOR (7 downto 0):= "10010010";
+	constant seis   :STD_LOGIC_VECTOR (7 downto 0):= "10000010";
+	constant sete   :STD_LOGIC_VECTOR (7 downto 0):= "11111000";
+	
+	begin
+
+
+
+		process(clock) --o programa entra no process(LINEAR) cada vez q sua variavel muda de estado. 
+			
+			variable count:INTEGER RANGE 0 TO 300000 := 0; -- ate 30000 para dividir o clock e respeitar os tempos de transição
+			begin
+			
+			if (clock = '1' AND clock'event) then
+				if count < 400000 then
+					count := count + 1;
+				else 
+					count := 0;
+				end if;
+					
+				if count > 0 and count < 100000 then
+					AN1 <= "0111";
+					if 	(SW_VECTOR = "000") then DISP <= zero;
+					elsif (SW_VECTOR = "001") then DISP <= um;
+					elsif (SW_VECTOR = "010") then DISP <= dois;
+					elsif (SW_VECTOR = "011") then DISP <= tres;
+					elsif (SW_VECTOR = "100") then DISP <= quatro;
+					elsif (SW_VECTOR = "101") then DISP <= cinco;
+					elsif (SW_VECTOR = "110") then DISP <= seis;
+					elsif (SW_VECTOR = "111") then DISP <= um;
+					end if;
+					
+				elsif count > 100000 and count < 200000 then	
+					AN1 <= "1011";
+					if 	(SW_VECTOR = "000") then DISP <= um;
+					elsif (SW_VECTOR = "001") then DISP <= um;
+					elsif (SW_VECTOR = "010") then DISP <= dois;
+					elsif (SW_VECTOR = "011") then DISP <= tres;
+					elsif (SW_VECTOR = "100") then DISP <= quatro;
+					elsif (SW_VECTOR = "101") then DISP <= tres;
+					elsif (SW_VECTOR = "110") then DISP <= seis;
+					elsif (SW_VECTOR = "111") then DISP <= um;
+					end if;
+					
+				elsif count > 200000 and count < 300000 then	
+					AN1 <= "1101";
+					if 	(SW_VECTOR = "000") then DISP <= dois;
+					elsif (SW_VECTOR = "001") then DISP <= um;
+					elsif (SW_VECTOR = "010") then DISP <= dois;
+					elsif (SW_VECTOR = "011") then DISP <= tres;
+					elsif (SW_VECTOR = "100") then DISP <= quatro;
+					elsif (SW_VECTOR = "101") then DISP <= cinco;
+					elsif (SW_VECTOR = "110") then DISP <= seis;
+					elsif (SW_VECTOR = "111") then DISP <= sete;
+					end if;
+				
+				elsif count > 300000 and count < 400000 then	
+					AN1 <= "1110";
+					if 	(SW_VECTOR = "000") then DISP <= tres;
+					elsif (SW_VECTOR = "001") then DISP <= um;
+					elsif (SW_VECTOR = "010") then DISP <= dois;
+					elsif (SW_VECTOR = "011") then DISP <= tres;
+					elsif (SW_VECTOR = "100") then DISP <= quatro;
+					elsif (SW_VECTOR = "101") then DISP <= cinco;
+					elsif (SW_VECTOR = "110") then DISP <= seis;
+					elsif (SW_VECTOR = "111") then DISP <= sete;
+					end if;
+				
+				end if;			
+			end if;
+
+		end process;
+
+	end Behavioral;
