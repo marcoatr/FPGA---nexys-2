@@ -92,3 +92,27 @@ architecture Behavioral of test7seg is
 		end process;
 
 	end Behavioral;
+	
+	
+	
+	_____________________________________________________________________
+	
+	NET SW_VECTOR(0) LOC = "G18";
+NET SW_VECTOR(1) LOC = "H18";
+NET SW_VECTOR(2) LOC = "K18";
+
+NET DISP(0) LOC = "L18";
+NET DISP(1) LOC = "F18";
+NET DISP(2) LOC = "D17";
+NET DISP(3) LOC = "D16";
+NET DISP(4) LOC = "G14";
+NET DISP(5) LOC = "J17";
+NET DISP(6) LOC = "H14";
+NET DISP(7) LOC = "C17";
+
+NET AN1(0) LOC = "F17";
+NET AN1(1) LOC = "H17";
+NET AN1(2) LOC = "C18";
+NET AN1(3) LOC = "F15";
+
+NET "clock" LOC = "B8";
